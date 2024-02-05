@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:note/home_page.dart';
 import 'package:note/sqldb.dart';
+import 'package:note/theme.dart';
 
 class Noteedit extends StatefulWidget {
   final note;
@@ -39,6 +42,7 @@ class _NoteeditState extends State<Noteedit> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColor.Secodarycolor,
         centerTitle: true,
         title: const Text("edit Notes"),
       ),
@@ -47,19 +51,35 @@ class _NoteeditState extends State<Noteedit> {
             key: formstate,
             child: Column(
               children: [
-                TextField(
-                  decoration: InputDecoration(hintText: "note"),
-                  controller: note,
-                ),
-                TextField(
-                  decoration: InputDecoration(hintText: "title"),
-                  controller: title,
-                ),
-                TextField(
-                  decoration: InputDecoration(hintText: "color"),
-                  controller: color,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(hintText: "note"),
+                        controller: note,
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(hintText: "title"),
+                        controller: title,
+                      ),
+                      SizedBox(
+                        height: 10.h,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(hintText: "color"),
+                        controller: color,
+                      ),
+                    ],
+                  ),
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColor.primarycolor,
+                  ),
                   onPressed: () async {
                     int response = await sqlDb.updateData('''
                     UPDATE notes SET 
@@ -77,7 +97,10 @@ class _NoteeditState extends State<Noteedit> {
                           (route) => false);
                     }
                   },
-                  child: Text("ed"),
+                  child: Text(
+                    "edite",
+                    style: GoogleFonts.singleDay(fontSize: 30.sp),
+                  ),
                 )
               ],
             ))

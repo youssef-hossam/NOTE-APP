@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:note/home_page.dart';
 import 'package:note/sqldb.dart';
+import 'package:note/theme.dart';
 
 class NoteAdd extends StatefulWidget {
   const NoteAdd({super.key});
@@ -27,27 +30,45 @@ class _NoteAddState extends State<NoteAdd> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColor.Secodarycolor,
         centerTitle: true,
-        title: const Text("Add Notes"),
+        title: Text(
+          "Add Notes",
+          style: GoogleFonts.ptSerif(
+            fontSize: 20.sp,
+          ),
+        ),
       ),
       body: ListView(children: [
         Form(
             key: formstate,
             child: Column(
               children: [
-                TextField(
-                  decoration: InputDecoration(hintText: "note"),
-                  controller: note,
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      TextField(
+                        decoration: InputDecoration(hintText: "note"),
+                        controller: note,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(hintText: "title"),
+                        controller: title,
+                      ),
+                      TextField(
+                        decoration: InputDecoration(hintText: "color"),
+                        controller: color,
+                      ),
+                    ],
+                  ),
                 ),
-                TextField(
-                  decoration: InputDecoration(hintText: "title"),
-                  controller: title,
-                ),
-                TextField(
-                  decoration: InputDecoration(hintText: "color"),
-                  controller: color,
+                SizedBox(
+                  height: 20.h,
                 ),
                 ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColor.primarycolor),
                   onPressed: () async {
                     int response = await sqlDb.insertData('''
                       INSERT INTO notes (note,title,color)
@@ -62,7 +83,10 @@ class _NoteAddState extends State<NoteAdd> {
                           (route) => false);
                     }
                   },
-                  child: Text("Add"),
+                  child: Text(
+                    "Add",
+                    style: GoogleFonts.singleDay(fontSize: 30.sp),
+                  ),
                 ),
               ],
             ))

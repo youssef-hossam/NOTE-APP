@@ -1,8 +1,11 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:note/noteedit_page.dart';
 import 'package:note/sqldb.dart';
+import 'package:note/theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -34,14 +37,19 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
+          backgroundColor: AppColor.Secodarycolor,
           child: const Icon(Icons.add),
           onPressed: () {
             Navigator.of(context).pushNamed('noteadd');
           },
         ),
         appBar: AppBar(
+          backgroundColor: AppColor.primarycolor,
           centerTitle: true,
-          title: Text("Note App"),
+          title: Text(
+            "Note App",
+            style: GoogleFonts.singleDay(fontSize: 30.sp),
+          ),
         ),
         body: isloading == true
             ? Center(child: CircularProgressIndicator())
@@ -76,7 +84,7 @@ class _HomePageState extends State<HomePage> {
                               IconButton(
                                 icon: Icon(
                                   Icons.edit,
-                                  color: Colors.blue,
+                                  color: Color.fromARGB(255, 99, 221, 134),
                                 ),
                                 onPressed: () async {
                                   Navigator.push(
