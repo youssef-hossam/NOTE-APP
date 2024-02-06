@@ -81,13 +81,21 @@ class _NoteeditState extends State<Noteedit> {
                     backgroundColor: AppColor.primarycolor,
                   ),
                   onPressed: () async {
-                    int response = await sqlDb.updateData('''
-                    UPDATE notes SET 
-                    note ="${note.text}" ,
-                    title ="${title.text}",
-                    color="${color.text}"
-                     WHERE id = ${widget.id}
-                     ''');
+                    // int response = await sqlDb.updateData('''
+                    // UPDATE notes SET
+                    // note ="${note.text}" ,
+                    // title ="${title.text}",
+                    // color="${color.text}"
+                    //  WHERE id = ${widget.id}
+                    //  ''');
+                    int response = await sqlDb.update(
+                        "notes",
+                        {
+                          "note": "${note.text}",
+                          "title": "${title.text}",
+                          "color": "${color.text}",
+                        },
+                        "id = ${widget.id}");
                     print(response);
                     if (response > 0) {
                       Navigator.of(context).pushAndRemoveUntil(

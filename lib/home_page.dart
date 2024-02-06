@@ -17,7 +17,7 @@ class _HomePageState extends State<HomePage> {
   bool isloading = true;
   SqlDb sqlDb = SqlDb();
   readData() async {
-    List<Map> response = await sqlDb.readData("SELECT * FROM 'notes'");
+    List<Map> response = await sqlDb.read("notes");
     notes.addAll(response);
     if (mounted) {
       setState(() {});
@@ -70,8 +70,10 @@ class _HomePageState extends State<HomePage> {
                                   color: Colors.red,
                                 ),
                                 onPressed: () async {
-                                  int response = await sqlDb.deleteData(
-                                      "DELETE FROM 'notes' WHERE id = ${notes[index]['id']} ");
+                                  // int response = await sqlDb.deleteData(
+                                  //     "DELETE FROM 'notes' WHERE id = ${notes[index]['id']} ");
+                                  int response = await sqlDb.delete(
+                                      "notes", " ${notes[index]['id']}");
                                   if (response > 0) {
                                     notes.removeWhere((element) =>
                                         element['id'] == notes[index]['id']);

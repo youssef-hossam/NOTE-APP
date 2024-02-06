@@ -72,4 +72,29 @@ class SqlDb {
     String path = join(databasepath, 'youssef.db');
     deleteDatabase(path);
   }
+
+// shortcut for sql method
+  read(String table) async {
+    Database? mydb = await db;
+    List<Map> response = await mydb!.query(table);
+    return response;
+  }
+
+  insert(String table, Map<String, Object?> values) async {
+    Database? mydb = await db;
+    int response = await mydb!.insert(table, values);
+    return response;
+  }
+
+  update(String table, Map<String, Object?> values, String? where) async {
+    Database? mydb = await db;
+    int response = await mydb!.update(table, values, where: where);
+    return response;
+  }
+
+  delete(String table, String? where) async {
+    Database? mydb = await db;
+    int response = await mydb!.delete(table, where: where);
+    return response;
+  }
 }
